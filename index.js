@@ -4,6 +4,7 @@ const fs = require('fs');
 const multer = require('multer');
 const { v4  } = require('uuid');
 const path = require('path');
+const morgan = require('morgan');
 
 
 const app = express();
@@ -13,7 +14,7 @@ const port = 3000;
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-
+app.use(morgan("dev"))
 app.use(express.json());
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
