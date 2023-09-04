@@ -17,6 +17,8 @@ const upload = multer({ storage });
 app.use(express.json());
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
+// POST -- svgFile
+
 app.post('/svgToJpg', upload.single('svgFile'), (req, res) => {
   const svgContent = req.file.buffer.toString('utf8'); // Obtén el contenido SVG del archivo subido
   const outputImagePath = `public/carnets/${v4()}.jpg`;
@@ -37,7 +39,7 @@ app.post('/svgToJpg', upload.single('svgFile'), (req, res) => {
     fs.writeFileSync(outputImagePath, buffer);
 
     console.log('Imagen guardada:', outputImagePath);
-    return res.status(200).json({ ok: true, data: `${domain}:${port}/${outputImagePath}`});
+    return res.status(200).json({ ok: true, data: `${domain}/${outputImagePath}`});
   });
 });
 
